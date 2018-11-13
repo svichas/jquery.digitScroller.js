@@ -33,10 +33,8 @@ $.fn.digitScroll = function(options) {
     tempElement.appendTo($this);
   }
 
-    digitScrollEvent();
 
   function digitScrollEvent() {
-
     var currentValue = getCurrentValue();
 
     if (currentValue >= options.scrollTo)
