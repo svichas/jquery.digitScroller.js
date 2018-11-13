@@ -8,17 +8,15 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.1",
     "express": "^4.16.3",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "mysql": "^2.16.0",
     "password-hash": "^1.2.2",
     "socket.io": "^2.1.1"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-uglify": "^3.0.1"
   }
 }
