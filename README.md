@@ -18,7 +18,7 @@ This Plugin requires jQuery.
   $(function() {
 
     $(".digit_scroll_container").digitScroll({
-      scrollTo: 63, // number to scroll to
+      scrollTo: 49, // number to scroll to
       changeDur: 150 // duration between number change
     });
 

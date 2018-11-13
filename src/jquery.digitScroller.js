@@ -4,7 +4,7 @@ $.fn.digitScroll = function(options) {
 
   // set default options
   options.scrollTo = typeof options.scrollTo === "undefined" ? 0 : options.scrollTo;
-  changeDur = typeof options.changeDur === "undefined" ? 0 : options.changeDur;
+  options.changeDur = typeof options.changeDur === "undefined" ? 0 : options.changeDur;
 
   // get current value
   var $this = $(this);
@@ -48,7 +48,7 @@ $.fn.digitScroll = function(options) {
   function goUp(digitPos) {
     var _digit = $this.find(".__digit_scroller_digit").eq(digitPos);
     // _digit.css("transition", "transform "+changeDur+"ms ease");
-    _digit.css("transition", "transform " + changeDur + "ms ease 0s").addClass("_digit_up");
+    _digit.css("transition", "transform " + options.changeDur + "ms ease 0s").addClass("_digit_up");
   }
 
   function getCurrentValue() {
@@ -73,7 +73,7 @@ $.fn.digitScroll = function(options) {
       count++;
     });
 
-    setTimeout(setNextToCurrent,  changeDur - 20);
+    setTimeout(setNextToCurrent,  options.changeDur - 20);
   }
 
   function setNextToCurrent() {
@@ -95,5 +95,5 @@ $.fn.digitScroll = function(options) {
     return val;
   }
 
-  var digitScrollEventTimer = setInterval(digitScrollEvent, changeDur);
+  var digitScrollEventTimer = setInterval(digitScrollEvent, options.changeDur);
 };
