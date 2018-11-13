@@ -1,3 +1,4 @@
+```js
 /*
  *                                                                                       
  *     _ _____                     _ _     _ _   _____             _ _             _     
@@ -10,6 +11,7 @@
  *                                                  Stefanos Vichas <stefanos@vichas.org>
  *  
  */
+```
 
 
 A jquery plugin for digit scrolling.
