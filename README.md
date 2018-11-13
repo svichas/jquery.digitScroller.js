@@ -1,6 +1,17 @@
 # jquery.digitScroller.js
 A jquery plugin for digit scrolling.
 
+---
+
+### Installation
+
+This Plugin requires jQuery.
+
+```html
+<link rel="stylesheet" href="../dist/jquery.digitScroller.css">
+<script src="../dist/jquery.digitScroller.js"></script>
+```
+
 ### Example
 ```html
 <script>
