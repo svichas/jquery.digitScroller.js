@@ -4,11 +4,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>jquery.digitScroller.js Example 1</title>
+
+  <link rel="stylesheet" href="../dist/jquery.digitScroller.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../dist/jquery.digitScroller.js"></script>
+
 </head>
 <body>
 
 
-  
+
+  <script>
+    $(function() {
+
+      $(".digit_scroll_container").digitScroll({
+        scrollTo: 999, // number to scroll to
+        changeDurr: 500 // durr between change
+      });
+
+    });
+  </script>
+
+  <div class="digit_scroll_container">010</div>
+
+
 
 </body>
 </html>

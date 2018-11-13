@@ -1,19 +1,14 @@
-
 .__digit_scroller_digit {
   position: relative;
   display: inline-block;
-  transform: translateY(0);
-  &._digit_up {
-    transform: translateY(-100%);
-  }
-}
+  transform: translateY(0); }
+  .__digit_scroller_digit._digit_up {
+    transform: translateY(-100%); }
 
 .__digit_scroller_next_digit {
   position: absolute;
   top: 100%;
-  left: 0;
-}
+  left: 0; }
 
 .__digit_scroller_wrap {
-  overflow-y: hidden;
-}
+  overflow-y: hidden; }
