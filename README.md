@@ -3,16 +3,16 @@ A jquery plugin for digit scrolling.
 
 ### Example
 ```html
-&lt;script&gt;
+<script>
   $(function() {
 
-    $(&quot;.digit_scroll_container&quot;).digitScroll({
+    $(".digit_scroll_container").digitScroll({
       scrollTo: 63, // number to scroll to
       changeDurr: 150 // durr between change
     });
 
   });
-&lt;/script&gt;
+</script>
 
-&lt;div class=&quot;digit_scroll_container&quot;&gt;00&lt;/div&gt;
+<div class="digit_scroll_container">00</div>
 ```
