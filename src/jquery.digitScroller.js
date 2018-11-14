@@ -75,7 +75,7 @@ $.fn.digitScroller = function(options) {
   function goUp(digitPos) {
     var _digit = $this.find(".__digit_scroller_digit").eq(digitPos);
     _digit
-    .css("transition", "transform " + options.scrollDuration + "ms ease 0s")
+    .css("transition", "transform " + options.scrollDuration + "ms ease")
     .addClass("_digit_up");
   }
 
@@ -95,23 +95,22 @@ $.fn.digitScroller = function(options) {
   */
   function updateNextValue(newValue) {
     newValue = bulkDigits(newValue);
+
     var count = 0;
     $this.find('.__digit_scroller_digit').each(function() {
-
       // change if need to change
       if ($(this).find(".__digit_scroller_next_digit").html() != newValue.charAt(count)) {
         $(this).find(".__digit_scroller_next_digit").html(newValue.charAt(count));
         goUp(count, true);
       }
-
       count++;
     });
 
-    setTimeout(setNextToCurrent,  options.scrollDuration - 20);
+    setTimeout(setNextToCurrent, options.scrollDuration-25);
   }
 
   /**
-  * Methos to set next values to current digits
+  * Method to set next values to current values
   */
   function setNextToCurrent() {
 
@@ -121,7 +120,9 @@ $.fn.digitScroller = function(options) {
     });
 
     // move current to show it and next to bottom without animating it
-    $this.find(".__digit_scroller_digit").css("transition", "transform 0ms ease 0s").removeClass('_digit_up');
+    $this.find(".__digit_scroller_digit")
+    .css("transition", "transform 0ms ease 0s")
+    .removeClass('_digit_up');
 
   }
 
