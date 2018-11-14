@@ -1,19 +1,27 @@
+/**
+*
+*
+*/
 
-
-$.fn.digitScroll = function(options) {
+$.fn.digitScroller = function(options) {
 
   // set default options
   options.scrollTo = typeof options.scrollTo === "undefined" ? 0 : options.scrollTo;
-  options.changeDur = typeof options.changeDur === "undefined" ? 0 : options.changeDur;
+  options.scrollDuration = typeof options.scrollDuration === "undefined" ? 0 : options.scrollDuration;
+  options.animationEnd = typeof options.animationEnd === "undefined" ? function() {} : options.animationEnd;
 
   // inits variables
   var $this = $(this);
   var tempString = $this.html();
   var tempElements = [];
   var digitScrollerLength = tempString.length;
+  var scrolling = false;
+  var digitScrollEventTimer;
 
 
-  if (!$this.hasClass('__digit_scroller_wrap')) {
+  if (!$this.hasClass('__digit_scroller_wrap')
+      || !$this.find(".__digit_scroller_digit").length
+      || !$this.find(".__digit_scroller_next_digit").length) {
 
     // format element stracture
     $this.addClass("__digit_scroller_wrap");
@@ -39,18 +47,25 @@ $.fn.digitScroll = function(options) {
 
   }
 
+
   /**
   * Core method that controls when to update digits
   */
   function digitScrollEvent() {
+
     var currentValue = getCurrentValue();
 
-    if (currentValue >= options.scrollTo)
-      return clearInterval(digitScrollEventTimer);
+    if (currentValue == options.scrollTo) {
+      scrolling = false;
+      options.animationEnd(); // fire animation end event
+      clearInterval(digitScrollEventTimer) // clear interval
+      return;
+    }
 
     currentValue++;
-
     updateNextValue(currentValue);
+
+    return;
   }
 
   /**
@@ -58,8 +73,9 @@ $.fn.digitScroll = function(options) {
   */
   function goUp(digitPos) {
     var _digit = $this.find(".__digit_scroller_digit").eq(digitPos);
-    // _digit.css("transition", "transform "+changeDur+"ms ease");
-    _digit.css("transition", "transform " + options.changeDur + "ms ease 0s").addClass("_digit_up");
+    _digit
+    .css("transition", "transform " + options.scrollDuration + "ms ease 0s")
+    .addClass("_digit_up");
   }
 
   /**
@@ -72,7 +88,6 @@ $.fn.digitScroll = function(options) {
     });
     return parseInt(currentValueString);
   }
-
 
   /**
   * Methos to update next values
@@ -91,7 +106,7 @@ $.fn.digitScroll = function(options) {
       count++;
     });
 
-    setTimeout(setNextToCurrent,  options.changeDur - 20);
+    setTimeout(setNextToCurrent,  options.scrollDuration - 20);
   }
 
   /**
@@ -121,5 +136,22 @@ $.fn.digitScroll = function(options) {
     return val;
   }
 
-  var digitScrollEventTimer = setInterval(digitScrollEvent, options.changeDur);
+  this.scrollTo = function(svalue) {
+
+    if (scrolling) return;
+
+    scrolling = true;
+    options.scrollTo = svalue;
+    digitScrollEventTimer = setInterval(digitScrollEvent, options.scrollDuration);
+
+    return true;
+
+  }
+
+  this.scrollDuration = function(durr) {
+    options.scrollDuration = durr;
+  }
+
+  return this;
+
 };

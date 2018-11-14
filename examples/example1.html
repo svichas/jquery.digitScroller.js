@@ -17,15 +17,18 @@
   <script>
     $(function() {
 
-      $(".digit_scroll_container").digitScroll({
-        scrollTo: 49, // number to scroll to
-        changeDur: 150 // duration between number change
-      });
+      var scroller = $(".digit_scroll_container").digitScroller({
+        scrollDuration: 500, // duration between number change
+        animationEnd: function() { // fired when digit scrolling animation is done
+
+        }
+      }).scrollTo(99);
+
 
     });
   </script>
 
-  <div class="digit_scroll_container">00</div>
+  <div class="digit_scroll_container" style="font-size: 72px;">00</div>
 
 </body>
 </html>
