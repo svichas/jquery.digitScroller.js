@@ -138,8 +138,11 @@ $.fn.digitScroller = function(options) {
     return val;
   }
 
-  this.scrollTo = function(svalue) {
 
+  /**
+  * Method to scroll to a number
+  */
+  this.scrollTo = function(svalue) {
     if (scrolling) return;
 
     scrolling = true;
@@ -147,11 +150,15 @@ $.fn.digitScroller = function(options) {
     digitScrollEventTimer = setInterval(digitScrollEvent, options.scrollDuration);
 
     return true;
-
   }
 
+
+  /**
+  * Method to change scroll duration animation
+  */
   this.scrollDuration = function(durr) {
     options.scrollDuration = durr;
+    return true;
   }
 
   return this;

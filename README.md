@@ -32,10 +32,12 @@ This Plugin requires jQuery.
 <script>
   $(function() {
 
-    $(".digit_scroll_container").digitScroll({
-      scrollTo: 49, // number to scroll to
-      changeDur: 150 // duration between number change
-    });
+    $(".digit_scroll_container").digitScroller({
+      scrollDuration: 500, // duration between number change
+      animationEnd: function() { // fired when digit scrolling animation is done
+
+      }
+    }).scrollTo(99);
 
   });
 </script>
