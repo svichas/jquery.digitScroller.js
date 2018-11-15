@@ -1,7 +1,8 @@
 .__digit_scroller_digit {
   position: relative;
   display: inline-block;
-  transform: translateY(0); }
+  transform: translateY(0);
+  width: .68em; }
   .__digit_scroller_digit._digit_up {
     transform: translateY(-100%); }
 
@@ -12,4 +13,4 @@
 
 .__digit_scroller_wrap {
   display: inline-block;
-  overflow-y: hidden; }
+  overflow: hidden; }

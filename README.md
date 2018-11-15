@@ -14,6 +14,8 @@
 ```
 
 
+![Showcase countdown](countdown.gif)
+
 A jquery plugin for digit scrolling.
 
 ---
