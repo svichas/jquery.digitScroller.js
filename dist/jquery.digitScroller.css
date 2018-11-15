@@ -11,4 +11,5 @@
   left: 0; }
 
 .__digit_scroller_wrap {
+  display: inline-block;
   overflow-y: hidden; }

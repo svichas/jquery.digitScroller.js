@@ -17,18 +17,23 @@
   <script>
     $(function() {
 
-      var scroller = $(".digit_scroll_container").digitScroller({
-        scrollDuration: 500, // duration between number change
-        animationEnd: function() { // fired when digit scrolling animation is done
+      var scrollerDays = $(".days").digitScroller({});
+      var scrollerHours = $(".hours").digitScroller({});
+      var scrollerMinutes = $(".minutes").digitScroller({});
+      var scrollerSeconds = $(".seconds").digitScroller({});
 
-        }
-      }).scrollTo(99);
-
+      scrollerDays.scrollDuration(100);
+      scrollerDays.scrollTo(6106);
 
     });
   </script>
 
-  <div class="digit_scroll_container" style="font-size: 72px;">00</div>
+  <div class="countdown">
+    <span class="days"></span> -
+    <span class="hours"></span> :
+    <span class="minutes"></span> :
+    <span class="seconds"></span>
+  </div>
 
 </body>
 </html>

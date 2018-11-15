@@ -20,15 +20,12 @@ $.fn.digitScroller = function(options) {
   var digitScrollEventTimer;
 
 
-  if (!$this.hasClass('__digit_scroller_wrap')
-      || !$this.find(".__digit_scroller_digit").length
-      || !$this.find(".__digit_scroller_current_digit").length
-      || !$this.find(".__digit_scroller_next_digit").length) {
+  if (!$this.hasClass('__digit_scroller_wrap')) {
 
     // format element stracture
     $this.addClass("__digit_scroller_wrap");
-    $this.html("");
 
+    $this.html("");
     for (var i = 0; i < tempString.length; i++) {
       var tempElement = $("<span/>", {
         class: "__digit_scroller_digit"
@@ -64,7 +61,13 @@ $.fn.digitScroller = function(options) {
       return;
     }
 
-    currentValue++;
+    if (options.scrollTo > currentValue) {
+      currentValue++;
+    } else {
+      currentValue--;
+    }
+
+
     updateNextValue(currentValue);
 
     return;
@@ -84,7 +87,7 @@ $.fn.digitScroller = function(options) {
   * Methos to get current digit value
   */
   function getCurrentValue() {
-    var currentValueString = "";
+    var currentValueString = 0;
     $this.find('.__digit_scroller_digit').each(function() {
       currentValueString += $(this).find(".__digit_scroller_current_digit").html();
     });
@@ -96,6 +99,25 @@ $.fn.digitScroller = function(options) {
   */
   function updateNextValue(newValue) {
     newValue = bulkDigits(newValue);
+
+    // create digit
+    for (i=$this.find(".__digit_scroller_digit").length;i<=newValue.length;i++) {
+      var tempElement = $("<span/>", {
+        class: "__digit_scroller_digit"
+      });
+
+      $("<span/>", {
+        class: "__digit_scroller_current_digit",
+        html: "0"
+      }).appendTo(tempElement);
+
+      $("<span/>", {
+        class: "__digit_scroller_next_digit",
+        html: "0"
+      }).appendTo(tempElement);
+
+      tempElement.appendTo($this);
+    }
 
     var count = 0;
     $this.find('.__digit_scroller_digit').each(function() {
@@ -153,6 +175,12 @@ $.fn.digitScroller = function(options) {
     digitScrollEventTimer = setInterval(digitScrollEvent, options.scrollDuration);
 
     return true;
+  }
+
+  this.setValue = function(value) {
+
+
+
   }
 
 
