@@ -67,10 +67,7 @@ $.fn.digitScroller = function(options) {
       currentValue--;
     }
 
-
     updateNextValue(currentValue);
-
-    return;
   }
 
   /**
@@ -91,7 +88,12 @@ $.fn.digitScroller = function(options) {
     $this.find('.__digit_scroller_digit').each(function() {
       currentValueString += $(this).find(".__digit_scroller_current_digit").html();
     });
-    return parseInt(currentValueString);
+    return parseInt(removeFrontZeros(currentValueString));
+  }
+
+  function removeFrontZeros(currentValueString) {
+    if (!currentValueString.includes("-")) return currentValueString;
+    return currentValueString.replace(new RegExp("^[0]*"), '');
   }
 
   /**
@@ -101,7 +103,8 @@ $.fn.digitScroller = function(options) {
     newValue = bulkDigits(newValue);
 
     // create digit
-    for (i=$this.find(".__digit_scroller_digit").length;i<=newValue.length;i++) {
+    for (i=$this.find(".__digit_scroller_digit").length;i<newValue.length;i++) {
+
       var tempElement = $("<span/>", {
         class: "__digit_scroller_digit"
       });
@@ -171,16 +174,18 @@ $.fn.digitScroller = function(options) {
     scrolling = true;
     options.scrollTo = svalue;
 
-    digitScrollEvent();
+    setTimeout(function() {
+      digitScrollEvent();
+    }, 1);
     digitScrollEventTimer = setInterval(digitScrollEvent, options.scrollDuration);
 
     return true;
   }
 
-  this.setValue = function(value) {
-
-
-
+  this.jumpTo = function(value) {
+    setTimeout(function() {
+      updateNextValue(value);
+    }, 1);
   }
 
 

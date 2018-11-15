@@ -8,7 +8,20 @@
   <link rel="stylesheet" href="../dist/jquery.digitScroller.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="../dist/jquery.digitScroller.js"></script>
-
+  <style>
+    .countdown {
+      border: 1px solid #888;
+      display: inline-block;
+      font-size: 32px;
+      height: 42px;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      padding: 6px 15px;
+    }
+    .countdown .count {
+      vertical-align: middle;
+    }
+  </style>
 </head>
 <body>
 
@@ -17,22 +30,49 @@
   <script>
     $(function() {
 
-      var scrollerDays = $(".days").digitScroller({});
-      var scrollerHours = $(".hours").digitScroller({});
-      var scrollerMinutes = $(".minutes").digitScroller({});
-      var scrollerSeconds = $(".seconds").digitScroller({});
+      var scrollerDays = $(".days").digitScroller({
+        "scrollDuration": 900
+      });
+      var scrollerHours = $(".hours").digitScroller({
+        "scrollDuration": 900
+      });
+      var scrollerMinutes = $(".minutes").digitScroller({
+        "scrollDuration": 900
+      });
+      var scrollerSeconds = $(".seconds").digitScroller({
+        "scrollDuration": 900
+      });
 
-      scrollerDays.scrollDuration(100);
-      scrollerDays.scrollTo(6106);
+      setTime();
+      setInterval(setTime, 1000);
+
+      function setTime() {
+        var time = calcTime();
+        scrollerDays.jumpTo(time.days);
+        scrollerHours.jumpTo(time.hours);
+        scrollerMinutes.jumpTo(time.minutes);
+        scrollerSeconds.jumpTo(time.seconds);
+      }
+
+      function calcTime() {
+          var d = new Date('Thu Nov 25 2019 02:29:17 GMT+0200').getTime() - new Date().getTime();
+          return {
+            "days": Math.floor(d / (1000 * 60 * 60 * 24)),
+            "hours": Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+            "minutes": Math.floor((d % (1000 * 60 * 60)) / (1000 * 60)),
+            "seconds": Math.floor((d % (1000 * 60)) / 1000)
+          }
+
+      }
 
     });
   </script>
 
   <div class="countdown">
-    <span class="days"></span> -
-    <span class="hours"></span> :
-    <span class="minutes"></span> :
-    <span class="seconds"></span>
+    <span class="count days">000</span> -
+    <span class="count hours">00</span> :
+    <span class="count minutes">00</span> :
+    <span class="count seconds">00</span>
   </div>
 
 </body>
