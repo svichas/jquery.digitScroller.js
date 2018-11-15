@@ -22,6 +22,7 @@ $.fn.digitScroller = function(options) {
 
   if (!$this.hasClass('__digit_scroller_wrap')
       || !$this.find(".__digit_scroller_digit").length
+      || !$this.find(".__digit_scroller_current_digit").length
       || !$this.find(".__digit_scroller_next_digit").length) {
 
     // format element stracture
@@ -138,20 +139,29 @@ $.fn.digitScroller = function(options) {
     return val;
   }
 
-  this.scrollTo = function(svalue) {
 
+  /**
+  * Method to scroll to a number
+  */
+  this.scrollTo = function(svalue) {
     if (scrolling) return;
 
     scrolling = true;
     options.scrollTo = svalue;
+
+    digitScrollEvent();
     digitScrollEventTimer = setInterval(digitScrollEvent, options.scrollDuration);
 
     return true;
-
   }
 
+
+  /**
+  * Method to change scroll duration animation
+  */
   this.scrollDuration = function(durr) {
     options.scrollDuration = durr;
+    return true;
   }
 
   return this;

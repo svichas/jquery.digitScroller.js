@@ -22,6 +22,7 @@ $.fn.digitScroller = function(options) {
 
   if (!$this.hasClass('__digit_scroller_wrap')
       || !$this.find(".__digit_scroller_digit").length
+      || !$this.find(".__digit_scroller_current_digit").length
       || !$this.find(".__digit_scroller_next_digit").length) {
 
     // format element stracture
@@ -147,6 +148,8 @@ $.fn.digitScroller = function(options) {
 
     scrolling = true;
     options.scrollTo = svalue;
+
+    digitScrollEvent();
     digitScrollEventTimer = setInterval(digitScrollEvent, options.scrollDuration);
 
     return true;
