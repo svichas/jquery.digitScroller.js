@@ -1,9 +1,13 @@
 .__digit_scroller_digit {
   position: relative;
   display: inline-block;
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
   transform: translateY(0);
   width: .68em; }
   .__digit_scroller_digit._digit_up {
+    -webkit-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
     transform: translateY(-100%); }
 
 .__digit_scroller_next_digit {

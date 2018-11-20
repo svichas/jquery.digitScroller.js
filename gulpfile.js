@@ -3,6 +3,7 @@ const gulp = require('gulp');
 // const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const sass = require("gulp-sass");
+const autoprefixer = require('gulp-autoprefixer');
 
 const jsfiles = [
   'src/*.js',
@@ -35,6 +36,10 @@ gulp.task('scss-compile', function() {
 
   gulp.src(scssfiles)
   .pipe(sass({outputStyle: "expanted"}).on("error", sass.logError))
+  .pipe(autoprefixer({
+    browsers: ['last 4 versions'],
+    cascade: false
+  }))
   .pipe(rename('jquery.digitScroller.css'))
   .pipe(gulp.dest('dist/'));
   //
