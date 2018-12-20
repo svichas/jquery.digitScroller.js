@@ -35,7 +35,7 @@ This Plugin requires jQuery.
   $(function() {
 
     var scroller = $(".digit_scroll_container").digitScroller({
-      scrollDuration: 500, // duration between number change
+      scrollDuration: 500 // duration between number change
     });
 
     // Method to set scroll duration
