@@ -34,12 +34,18 @@ This Plugin requires jQuery.
 <script>
   $(function() {
 
-    $(".digit_scroll_container").digitScroller({
+    var scroller = $(".digit_scroll_container").digitScroller({
       scrollDuration: 500, // duration between number change
-      animationEnd: function() { // fired when digit scrolling animation is done
+    })
 
-      }
-    }).scrollTo(99);
+    // Method to set scroll duration
+    scroller.scrollDuration(200);
+
+    // Method to scroll to a number one by one.
+    scroller.scrollTo(99);
+
+    // Method to jump directly to a number
+    scroller.jumpTo(99);
 
   });
 </script>

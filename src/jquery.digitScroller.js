@@ -9,7 +9,6 @@ $.fn.digitScroller = function(options) {
   // set default options
   options.scrollTo = typeof options.scrollTo === "undefined" ? 0 : options.scrollTo;
   options.scrollDuration = typeof options.scrollDuration === "undefined" ? 0 : options.scrollDuration;
-  options.animationEnd = typeof options.animationEnd === "undefined" ? function() {} : options.animationEnd;
 
   // inits variables
   var $this = $(this);
@@ -56,7 +55,6 @@ $.fn.digitScroller = function(options) {
 
     if (currentValue == options.scrollTo) {
       scrolling = false;
-      options.animationEnd(); // fire animation end event
       clearInterval(digitScrollEventTimer) // clear interval
       return;
     }
