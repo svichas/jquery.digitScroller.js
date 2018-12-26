@@ -18,6 +18,12 @@ $.fn.digitScroller = function(options) {
   var scrolling = false;
   var digitScrollEventTimer;
 
+  // set zero when empty
+  if (digitScrollerLength == 0) {
+    tempString = "0";
+    $this.html("0")
+    digitScrollerLength = 1;
+  }
 
   if (!$this.hasClass('__digit_scroller_wrap')) {
 
