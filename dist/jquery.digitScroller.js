@@ -11,12 +11,12 @@ $.fn.digitScroller = function(options) {
   options.scrollDuration = typeof options.scrollDuration === "undefined" ? 0 : options.scrollDuration;
 
   // inits variables
-  var $this = $(this);
-  var tempString = $this.html();
-  var tempElements = [];
-  var digitScrollerLength = tempString.length;
-  var scrolling = false;
-  var digitScrollEventTimer;
+  var $this = $(this),
+      tempString = $this.html(),
+      tempElements = [],
+      digitScrollerLength = tempString.length,
+      scrolling = false,
+      digitScrollEventTimer;
 
   // set zero when empty
   if (digitScrollerLength == 0) {
@@ -30,7 +30,7 @@ $.fn.digitScroller = function(options) {
     // format element stracture
     $this.addClass("__digit_scroller_wrap");
 
-    $this.html("");
+    $this.html(""); // clear element wrap content.
     for (var i = 0; i < tempString.length; i++) {
       var tempElement = $("<span/>", {
         class: "__digit_scroller_digit"
@@ -78,8 +78,7 @@ $.fn.digitScroller = function(options) {
   * Methos to go to top with animation
   */
   function goUp(digitPos) {
-    var _digit = $this.find(".__digit_scroller_digit").eq(digitPos);
-    _digit
+    $this.find(".__digit_scroller_digit").eq(digitPos)
     .css("transition", "transform " + options.scrollDuration + "ms ease")
     .addClass("_digit_up");
   }
