@@ -51,7 +51,6 @@ $.fn.digitScroller = function(options) {
 
   }
 
-
   /**
   * Core method that controls when to update digits
   */
@@ -107,25 +106,25 @@ $.fn.digitScroller = function(options) {
 
     // create digit
     for (i=$this.find(".__digit_scroller_digit").length;i<newValue.length;i++) {
-
-      var tempElement = $("<span/>", {
+      var _digit_scroller = $("<span/>", {
         class: "__digit_scroller_digit"
       });
 
       $("<span/>", {
         class: "__digit_scroller_current_digit",
         html: "0"
-      }).appendTo(tempElement);
+      }).appendTo(_digit_scroller);
 
       $("<span/>", {
         class: "__digit_scroller_next_digit",
         html: "0"
-      }).appendTo(tempElement);
+      }).appendTo(_digit_scroller);
 
-      tempElement.appendTo($this);
+      _digit_scroller.appendTo($this);
     }
 
     var count = 0;
+
     $this.find('.__digit_scroller_digit').each(function() {
       // change if need to change
       if ($(this).find(".__digit_scroller_next_digit").html() != newValue.charAt(count)) {
@@ -171,33 +170,30 @@ $.fn.digitScroller = function(options) {
   /**
   * Method to scroll to a number
   */
-  this.scrollTo = function(svalue) {
-    if (scrolling) return;
-
-    scrolling = true;
-    options.scrollTo = svalue;
-
-    setTimeout(function() {
-      digitScrollEvent();
-    }, 1);
-    digitScrollEventTimer = setInterval(digitScrollEvent, options.scrollDuration);
-
-    return true;
+  this.scrollTo = function(scroll_to) {
+    if (!scrolling) {
+          scrolling = true;
+          options.scrollTo = scroll_to;
+          digitScrollEvent();
+          digitScrollEventTimer = setInterval(digitScrollEvent, options.scrollDuration);
+    }
+    return this;
   }
 
+  /**
+  * Method to jump to directly to a number
+  */
   this.jumpTo = function(value) {
-    setTimeout(function() {
       updateNextValue(value);
-    }, 1);
+      return this;
   }
-
 
   /**
   * Method to change scroll duration animation
   */
   this.scrollDuration = function(durr) {
     options.scrollDuration = durr;
-    return true;
+    return this;
   }
 
   return this;
