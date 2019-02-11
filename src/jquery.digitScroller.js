@@ -14,7 +14,8 @@
                     "scrollDuration": 0
                }, opts),
                scrollerContent = $this.html() == "" ? "0" : $this.html(),
-               scrolling = false;
+               scrolling = false,
+               digitScrollEventTimer;
 
 
           this.init = function() {
@@ -22,35 +23,12 @@
                return this;
           }
 
-
-          /**
-          * Core method that controls when to update digits
-          */
-          this.coreScroll = function() {
-               var currentValue = getCurrentValue();
-
-               if (currentValue == opts.scrollTo) {
-                    scrolling = false;
-                    clearInterval(digitScrollEventTimer) // clear interval
-                    return;
-               }
-
-               if (opts.scrollTo > currentValue) {
-                    currentValue++;
-               } else {
-                    currentValue--;
-               }
-
-               updateNextValue(currentValue);
-          }
-
-
           this.getCurrentValue = function() {
                var currentValueString = 0;
                $this.find('.__digit_scroller_digit').each(function() {
                     currentValueString += $(this).find(".__digit_scroller_current_digit").html();
                });
-               return parseInt(removeFrontZeros(currentValueString));
+               return parseInt(this.removeFrontZeros(currentValueString));
           }
 
           /**
@@ -81,6 +59,34 @@
           }
 
 
+
+          /**
+          * Method to update next values
+          */
+          this.updateNextValue = function(newValue) {
+
+               var _this = this,
+                    count = 0;
+
+               newValue = this.addZeros(newValue, scrollerContent.length);
+
+               // create digit
+               for (i=$this.find(".__digit_scroller_digit").length;i<newValue.length;i++) {
+                    $this.append(this.cunstuctDigit('0'));
+               }
+
+               $this.find('.__digit_scroller_digit').each(function() {
+                    // change if need to change
+                    if ($(this).find(".__digit_scroller_next_digit").html() != newValue.charAt(count)) {
+                         $(this).find(".__digit_scroller_next_digit").html(newValue.charAt(count));
+                         _this.transitionToUp(count, true);
+                    }
+                    count++;
+               });
+
+               setTimeout(this.setNextNumberToCurrent, opts.scrollDuration-25);
+          }
+
           this.addZeros = function(number, length) {
                number = String(number);
                if (number.length >= length) return number;
@@ -91,10 +97,14 @@
           }
 
           this.removeFrontZeros = function(currentValueString) {
-               if (!currentValueString.includes("-")) return currentValueString;
+               // return if number is negative
+               if (!currentValueString.includes("-")) {
+                    return currentValueString;
+               }
+
                return currentValueString.replace(new RegExp("^[0]*"), '');
           }
-          
+
           /**
           * Method to format digitScroller
           */
@@ -129,24 +139,53 @@
           }
 
 
+          /**
+          * Core method that controls when to update digits
+          */
+          this.coreScroll = function() {
+               var currentValue = this.getCurrentValue();
+
+               if (currentValue == opts.scrollTo) {
+                    scrolling = false;
+                    clearInterval(digitScrollEventTimer) // clear interval
+                    return;
+               }
+
+               if (opts.scrollTo > currentValue) {
+                    currentValue++;
+               } else {
+                    currentValue--;
+               }
+
+               this.updateNextValue(currentValue);
+          }
+
+
           // public methods
 
           /**
           * Method to scroll to a number
           */
           this.scrollTo = function(number) {
-
+               if (!scrolling) {
+                    var _this = this;
+                    scrolling = true;
+                    opts.scrollTo = number;
+                    this.coreScroll();
+                    digitScrollEventTimer = setInterval(function() {
+                         _this.coreScroll();
+                    }, opts.scrollDuration);
+               }
                return this;
           }
 
           /**
           * Method to jump to directly to a number
           */
-          this.jumpTo = function() {
-
+          this.jumpTo = function(value) {
+               this.updateNextValue(value);
                return this;
           }
-
 
           /**
           * Method to change scroll duration animation
